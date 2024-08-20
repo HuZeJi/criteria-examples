@@ -1,0 +1,6 @@
+rootProject.name = 'criteria'
+include 'com.huzeji.criteria.model'
+include 'com.huzeji.criteria.repository'
+include 'com.huzeji.criteria.service'
+include 'com.huzeji.criteria.web'
+

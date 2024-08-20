@@ -1,0 +1,73 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id "io.sentry.jvm.gradle" version "4.11.0"
+}
+
+sentry {
+	// Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
+	// This enables source context, allowing you to see your source
+	// code as part of your stack traces in Sentry.
+	includeSourceContext = true
+
+	org = "huzeji"
+	projectName = "java-spring-boot"
+	authToken = System.getenv("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")
+}
+
+bootJar {
+	enabled = false
+}
+
+allprojects {
+	repositories {
+		mavenCentral()
+		flatDir {
+			dirs 'lib'
+		}
+	}
+}
+
+//group = 'com.huzeji'
+//version = '0.0.1-SNAPSHOT'
+//
+//java {
+//	toolchain {
+//		languageVersion = JavaLanguageVersion.of(17)
+//	}
+//}
+
+// SENTRY_AUTH_TOKEN=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
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'jacoco'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-actuator'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+		runtimeOnly 'com.h2database:h2'
+	}
+
+	springBoot {
+		mainClass = 'com.huzeji.criteria.web.CriteriaApplication'
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+
+	tasks.named( 'bootJar' ) {
+		mainClass = 'com.huzeji.criteria.web.CriteriaApplication'
+	}
+
+	tasks.named( 'bootRun' ) {
+		mainClass = 'com.huzeji.criteria.web.CriteriaApplication'
+	}
+}

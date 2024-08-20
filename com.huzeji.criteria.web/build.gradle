@@ -1,0 +1,4 @@
+dependencies {
+    implementation( project( ':com.huzeji.criteria.model' ) )
+    implementation( project( ':com.huzeji.criteria.service' ) )
+}
